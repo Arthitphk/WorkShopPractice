@@ -1,0 +1,104 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+}
+
+.money-img {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 100px;
+}
+.swap-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+#btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}   
+#rate {
+    font-size: 16px;
+}
+
+.currency input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.currency select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 0;
+    appearance: none;
+}
+.currency {
+    margin-bottom: 20px;
+}
+.currency:last-child {
+    margin-bottom: 0;
+}
+.currency label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}   
+
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+input, select {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+
+
+
