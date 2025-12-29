@@ -8,19 +8,13 @@ const amount = document.getElementById('amount');
 
 
 
-const datatransaction = [
-    {id:1,text:"snack",amount:-100},
-    {id:2,text:"room tax",amount:-2200},
-    {id:3,text:"salary",amount:+22000},
-    {id:4,text:"steam sale",amount:-3200},
-    {id:5,text:"win lotaly",amount:+5000}
-]
 
 
-const transaction = datatransaction;
+let transaction = [];
 
 // วน data
 function init() {
+   list.innerHTML = '';
    transaction.forEach(addDataToList)
    calculateMoney(); 
 }
@@ -30,11 +24,22 @@ function addDataToList (transaction) {
     const symbol = transaction.amount < 0 ? '-': '+';
     const status = transaction.amount < 0 ? 'minus':'plus';
     const item = document.createElement('li');
+    let result = formatNumber(Math.abs(transaction.amount))
     item.classList.add(status);
-    item.innerHTML =  `${transaction.text}<span>${symbol}${Math.abs(transaction.amount)}</span><button class="delete-btn">x</button>`;
+    item.innerHTML =  `${transaction.text}<span>${symbol}${result}</span><button class="delete-btn" onclick="removeData(${transaction.id})">x</button>`;
     list.appendChild(item)
     
 };
+
+
+// ใส้ลูกน้ำ
+function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
+function autoID(){
+    return Math.floor(Math.random()*1000000)
+}
 
 function calculateMoney() {
     const amounts = transaction.map(transaction => transaction.amount)
@@ -43,20 +48,41 @@ function calculateMoney() {
     // คำนวณรายรับ
     const income = amounts.filter(item=>item > 0).reduce((result,item) => (result += item),0).toFixed(2);
     // คำนวณรายจ่าย
-    const expense = amounts.filter(item=>item < 0).reduce((result,item) => (result -= item),0).toFixed(2);
+    const expense = (amounts.filter(item=>item < 0).reduce((result,item) => (result += item),0)*-1).toFixed(2);
 
-    // แสดงผลทางจ
-    balance.innerText =`฿+${total}`
-    money_plus.innerText =`฿+${income}`
-    money_minus.innerText =`฿+${expense}`
+    // แสดงผลทางจอ
+    balance.innerText =`฿`+ formatNumber(total);
+    money_plus.innerText =`฿`+ formatNumber(income);
+    money_minus.innerText =`฿`+ formatNumber(expense);
+}
+
+function removeData(id) {
+    transaction = transaction.filter(transaction=>transaction.id !== id);
+    init();
 }
 
 
+function addTransaction(e) {
+   e.preventDefault();
+    if(text.value.trim() === '' || amount.value.trim() === '') {
+        alert("กรุณาป้อนข้อมูลให้ครบ");
+    } else {
+       const data= {
+        id:autoID(),
+        text:text.value,
+        amount:+amount.value
+       }
+        transaction.push(data);
+        addDataToList(data);
+        calculateMoney();
+        text.value= '';
+        amount.value= '';
+    }
+}
 
 
+form.addEventListener('submit',addTransaction);
 init();
-
-
 
 
  
